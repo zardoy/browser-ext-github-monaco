@@ -7,7 +7,7 @@
 	"scripts": {
 		"dev": "webpack --watch --mode development --env=use-cdn-for-monaco=true",
 		"dev-without-cdn": "webpack --watch --mode development",
-		"start-chrome": "web-ext run --source-dir=. --chromium-profile=.profile --target=chromium --reload --url https://github.com/microsoft/vscode/issues/ --browser-console",
+		"start-chrome": "web-ext run --source-dir=. --chromium-profile=.profile --profile-create-if-missing --target=chromium --reload --url https://github.com/microsoft/vscode/issues/ --browser-console",
 		"build": "yarn build-js && yarn bundle",
 		"build-js": "webpack --mode production",
 		"bundle": "yarn shx rm -rf ./dist/extension.zip && yarn jszip-cli add -o ./dist/extension.zip -i *.map dist manifest.json logo.drawio.png",

@@ -1,6 +1,5 @@
 import * as webpack from "webpack";
 import path = require("path");
-import { CleanWebpackPlugin } from "clean-webpack-plugin";
 import MonacoWebpackPlugin = require("monaco-editor-webpack-plugin");
 import ForkTsCheckerWebpackPlugin = require("fork-ts-checker-webpack-plugin");
 import MiniCssExtractPlugin = require("mini-css-extract-plugin");
@@ -18,6 +17,7 @@ module.exports = (env: any) => {
 			styles: r("./src/styles.scss"),
 		},
 		output: {
+			clean: true,
 			path: r("./dist"),
 			filename: "[name].js",
 		},
@@ -59,7 +59,6 @@ module.exports = (env: any) => {
 		},
 		plugins: [
 			new MiniCssExtractPlugin(),
-			new CleanWebpackPlugin(),
 			new webpack.EnvironmentPlugin({
 				USE_CDN_FOR_MONACO: useCdnForMonaco ? "1" : "0",
 			}),
@@ -72,14 +71,13 @@ module.exports = (env: any) => {
 					},
 				],
 			}),
-			new CleanWebpackPlugin(),
 			...(useCdnForMonaco
 				? []
 				: [
-						new MonacoWebpackPlugin({
-							languages: ["markdown"],
-						}),
-				  ]),
+					new MonacoWebpackPlugin({
+						languages: ["markdown"],
+					}),
+				]),
 		],
-	} as webpack.Configuration;
+	} satisfies webpack.Configuration;
 };
